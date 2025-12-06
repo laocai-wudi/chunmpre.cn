@@ -1,0 +1,27 @@
+{% extends "frontend/base.html" %}
+
+{% block title %}页面未找到 - 上海春木精密机械有限公司{% endblock %}
+
+{% block content %}
+<section class="error-section py-16 text-center">
+    <div class="container">
+        <div class="max-w-2xl mx-auto bg-white p-8 rounded-xl shadow-md">
+            <div class="text-9xl font-bold text-blue-100 mb-4">404</div>
+            <h2 class="text-3xl font-bold text-gray-800 mb-4">页面未找到</h2>
+            <p class="text-gray-600 mb-8">抱歉，您访问的页面不存在或已被移除。</p>
+            <a href="{{ url_for('main.index') }}" class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors duration-300">
+                <i class="fas fa-home mr-2"></i> 返回首页
+            </a>
+            <div class="mt-8">
+                <p class="text-sm text-gray-500">您可以尝试以下操作：</p>
+                <ul class="text-sm text-gray-500 list-disc list-inside mt-2 text-left max-w-md mx-auto">
+                    <li>检查URL是否正确</li>
+                    <li>使用上方导航栏浏览网站</li>
+                    <li>通过搜索功能查找您需要的内容</li>
+                    <li>如果您认为这是我们的错误，请联系我们</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>产品中心 - 东莞春鸣精密机械有限公司</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0A3D62',
+                        secondary: '#3C6382',
+                        accent: '#60A3BC',
+                        light: '#F8FAFC',
+                        dark: '#1E293B'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif', 'PingFang SC', 'Microsoft YaHei']
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .section-padding {
+                @apply py-16 md:py-24;
+            }
+            .card-hover {
+                @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
+            }
+            .btn-primary {
+                @apply bg-primary text-white px-6 py-3 rounded-md hover:bg-accent transition-colors font-medium inline-block;
+            }
+            .btn-outline {
+                @apply border-2 border-primary text-primary px-6 py-3 rounded-md hover:bg-primary hover:text-white transition-colors font-medium inline-block;
+            }
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-800 bg-light">
+    <!-- 导航栏 (与原页面相同) -->
+    <header id="navbar" class="fixed w-full bg-white/90 backdrop-blur-sm z-50 transition-all duration-300 py-4">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="flex justify-between items-center">
+                <!-- Logo -->
+                <a href="index.html" class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-primary rounded-md flex items-center justify-center">
+                        <i class="fa fa-cogs text-white text-xl"></i>
+                    </div>
+                    <span class="text-xl font-bold text-primary">春鸣精密机械</span>
+                </a>
+
+                <!-- 桌面端导航 -->
+                <nav class="hidden md:flex items-center gap-8">
+                    <a href="index.html#home" class="text-gray-700 hover:text-primary transition-colors">首页</a>
+                    <a href="index.html#about" class="text-gray-700 hover:text-primary transition-colors">关于我们</a>
+                    <a href="index.html#technology" class="text-gray-700 hover:text-primary transition-colors">核心业务</a>
+                    <a href="products.html" class="text-primary font-medium">产品中心</a>
+                    <a href="index.html#contact" class="btn-primary">联系我们</a>
+                </nav>
+
+                <!-- 移动端菜单按钮 -->
+                <button id="menuBtn" class="md:hidden text-gray-700 text-xl">
+                    <i class="fa fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- 移动端导航菜单 -->
+        <div id="mobileMenu" class="md:hidden hidden bg-white border-t mt-4">
+            <div class="container mx-auto px-4 py-3 flex flex-col gap-4">
+                <a href="index.html#home" class="text-gray-700 hover:text-primary py-2 transition-colors">首页</a>
+                <a href="index.html#about" class="text-gray-700 hover:text-primary py-2 transition-colors">关于我们</a>
+                <a href="index.html#technology" class="text-gray-700 hover:text-primary py-2 transition-colors">核心业务</a>
+                <a href="products.html" class="text-primary font-medium py-2">产品中心</a>
+                <a href="index.html#contact" class="btn-primary text-center">联系我们</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 产品列表标题区 -->
+    <section class="pt-32 pb-12 bg-gradient-to-br from-primary/5 to-secondary/5">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="text-center">
+                <span class="inline-block bg-primary/10 text-primary px-3 py-1 rounded-full text-sm mb-3">产品中心</span>
+                <h1 class="text-3xl md:text-4xl font-bold text-primary mb-4">精密设备展示</h1>
+                <div class="w-20 h-1 bg-accent mx-auto mb-6"></div>
+                <p class="text-gray-600 max-w-3xl mx-auto">
+                    提供各类高品质精密测量仪器和加工设备，包括全新及优质二手设备
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 产品筛选区 -->
+    <section class="py-8 bg-white">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="flex flex-wrap gap-4 mb-2">
+                <button class="bg-primary text-white px-4 py-2 rounded-md">全部产品</button>
+                <button class="bg-gray-100 hover:bg-primary/10 px-4 py-2 rounded-md transition-colors">测量仪器</button>
+                <button class="bg-gray-100 hover:bg-primary/10 px-4 py-2 rounded-md transition-colors">加工设备</button>
+                <button class="bg-gray-100 hover:bg-primary/10 px-4 py-2 rounded-md transition-colors">光学设备</button>
+                <button class="bg-gray-100 hover:bg-primary/10 px-4 py-2 rounded-md transition-colors">数控设备</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 产品列表区 -->
+    <section class="py-12 bg-light">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- 产品1 -->
+                <div class="bg-white rounded-lg overflow-hidden shadow-md card-hover cursor-pointer" onclick="window.location='product-detail.html?product=泰勒霍普森系列'">
+                    <div class="h-60 overflow-hidden">
+                        <img src="https://p11-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/f413055e82c842048c4e52fd647b4757.jpg~tplv-a9rns2rl98-24:720:720.image" alt="Taylor Hobson系列" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-primary mb-3">Taylor Hobson系列</h3>
+                        <p class="text-gray-600 mb-4">
+                            英国泰勒霍普森精密测量仪器，包括圆度仪、粗糙度仪等，精度高，稳定性好，适用于高端制造领域。
+                        </p>
+                        <a href="product-detail.html?url=泰勒霍普森系列" class="text-accent hover:underline flex items-center gap-2">
+                            查看详情 <i class="fa fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- 产品2 -->
+                <div class="bg-white rounded-lg overflow-hidden shadow-md card-hover cursor-pointer" onclick="window.location='product-detail.html?product=松下UA3P'">
+                    <div class="h-60 overflow-hidden">
+                        <img src="https://p3-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/e3185756972040bbbcbc3245c3d5590a.jpg~tplv-a9rns2rl98-24:720:720.image" alt="松下UA3P" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-primary mb-3">松下UA3P</h3>
+                        <p class="text-gray-600 mb-4">
+                            松下高精度三次元测量机，操作简便，测量精准，广泛应用于电子、模具等行业的精密测量。
+                        </p>
+                        <a href="product-detail.html?id=2" class="text-accent hover:underline flex items-center gap-2">
+                            查看详情 <i class="fa fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- 产品3 -->
+                <div class="bg-white rounded-lg overflow-hidden shadow-md card-hover cursor-pointer" onclick="window.location='product-detail.html?product=FANUC慢走丝'">
+                    <div class="h-60 overflow-hidden">
+                        <img src="https://p11-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/b9b3cb304d4b497eb7b687dfc64d369f.jpg~tplv-a9rns2rl98-24:720:720.image" alt="FANUC慢走丝" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-primary mb-3">FANUC慢走丝</h3>
+                        <p class="text-gray-600 mb-4">
+                            发那科高精度慢走丝线切割机床，加工精度高，表面质量好，适用于精密模具、零件的加工制造。
+                        </p>
+                        <a href="product-detail.html?url=FANUC慢走丝" class="text-accent hover:underline flex items-center gap-2">
+                            查看详情 <i class="fa fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- 产品4 -->
+                <div class="bg-white rounded-lg overflow-hidden shadow-md card-hover cursor-pointer" onclick="window.location='product-detail.html?product=德国TRIOPTICS偏心仪'">
+                    <div class="h-60 overflow-hidden">
+                        <img src="https://picsum.photos/id/108/600/400" alt="德国TRIOPTICS偏心仪" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-primary mb-3">德国TRIOPTICS偏心仪</h3>
+                        <p class="text-gray-600 mb-4">
+                            德国高精度光学元件偏心仪，用于测量透镜、棱镜等光学元件的偏心量，精度达微米级。
+                        </p>
+                        <a href="product-detail.html?url=德国TRIOPTICS偏心仪" class="text-accent hover:underline flex items-center gap-2">
+                            查看详情 <i class="fa fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- 产品5 -->
+                <div class="bg-white rounded-lg overflow-hidden shadow-md card-hover cursor-pointer" onclick="window.location='product-detail.html?product=三坐标测量器械'">
+                    <div class="h-60 overflow-hidden">
+                        <img src="https://picsum.photos/id/109/600/400" alt="三坐标测量器械" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-primary mb-3">三坐标测量器械</h3>
+                        <p class="text-gray-600 mb-4">
+                            高精度三坐标测量机，可对复杂零件进行三维尺寸测量，广泛应用于汽车、航空航天等行业。
+                        </p>
+                        <a href="product-detail.html?url=三坐标测量器械" class="text-accent hover:underline flex items-center gap-2">
+                            查看详情 <i class="fa fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- 产品6 -->
+                <div class="bg-white rounded-lg overflow-hidden shadow-md card-hover cursor-pointer" onclick="window.location='product-detail.html?product=超精密车床'">
+                    <div class="h-60 overflow-hidden">
+                        <img src="https://picsum.photos/id/110/600/400" alt="超精密车床" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-primary mb-3">超精密车床</h3>
+                        <p class="text-gray-600 mb-4">
+                            超精密数控车床，可加工高精度回转体零件，表面粗糙度可达纳米级，适用于光学、医疗等领域。
+                        </p>
+                        <a href="product-detail.html?url=超精密车床" class="text-accent hover:underline flex items-center gap-2">
+                            查看详情 <i class="fa fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 分页 -->
+            <div class="flex justify-center mt-12 gap-2">
+                <button class="w-10 h-10 flex items-center justify-center rounded-md border border-gray-300 hover:border-primary hover:text-primary transition-colors">1</button>
+                <button class="w-10 h-10 flex items-center justify-center rounded-md border border-gray-300 hover:border-primary hover:text-primary transition-colors">2</button>
+                <button class="w-10 h-10 flex items-center justify-center rounded-md border border-gray-300 hover:border-primary hover:text-primary transition-colors">3</button>
+                <span class="w-10 h-10 flex items-center justify-center">...</span>
+                <button class="w-10 h-10 flex items-center justify-center rounded-md border border-gray-300 hover:border-primary hover:text-primary transition-colors">8</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系我们 (简化版) -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4 md:px-8 text-center">
+            <h2 class="text-2xl md:text-3xl font-bold text-primary mb-4">需要了解更多产品信息？</h2>
+            <p class="text-gray-600 max-w-2xl mx-auto mb-8">
+                我们的专业团队将为您提供详细的产品介绍和技术支持，欢迎随时联系我们
+            </p>
+            <a href="index.html#contact" class="btn-primary">
+                联系我们
+            </a>
+        </div>
+    </section>
+
+    <!-- 页脚 (与原页面相同) -->
+    <footer class="bg-primary text-white py-12">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 bg-white rounded-md flex items-center justify-center">
+                            <i class="fa fa-cogs text-primary text-xl"></i>
+                        </div>
+                        <span class="text-xl font-bold">春鸣精密机械</span>
+                    </div>
+                    <p class="text-gray-300 mb-6">
+                        专注精密机械，为客户提供高品质产品与服务
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-accent transition-colors">
+                            <i class="fa fa-weixin"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-6">快速链接</h4>
+                    <ul class="space-y-3">
+                        <li><a href="index.html#home" class="text-gray-300 hover:text-white transition-colors">首页</a></li>
+                        <li><a href="index.html#about" class="text-gray-300 hover:text-white transition-colors">关于我们</a></li>
+                        <li><a href="index.html#technology" class="text-gray-300 hover:text-white transition-colors">核心业务</a></li>
+                        <li><a href="products.html" class="text-white font-medium">产品中心</a></li>
+                        <li><a href="index.html#contact" class="text-gray-300 hover:text-white transition-colors">联系我们</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-6">产品系列</h4>
+                    <ul class="space-y-3">
+                        <li><a href="product-detail.html?product=泰勒霍普森系列" class="text-gray-300 hover:text-white transition-colors">Taylor Hobson系列</a></li>
+                        <li><a href="product-detail.html?product=松下UA3P" class="text-gray-300 hover:text-white transition-colors">松下UA3P</a></li>
+                        <li><a href="product-detail.html?product=FANUC慢走丝" class="text-gray-300 hover:text-white transition-colors">FANUC慢走丝</a></li>
+                        <li><a href="product-detail.html?product=德国TRIOPTICS偏心仪" class="text-gray-300 hover:text-white transition-colors">德国TRIOPTICS偏心仪</a></li>
+                        <li><a href="product-detail.html?product=三坐标测量器械" class="text-gray-300 hover:text-white transition-colors">三坐标测量器械</a></li>
+                        <li><a href="product-detail.html?product=超精密车床" class="text-gray-300 hover:text-white transition-colors">超精密车床</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-6">联系信息</h4>
+                    <ul class="space-y-3">
+                        <li class="flex items-start gap-3">
+                            <i class="fa fa-map-marker mt-1"></i>
+                            <span class="text-gray-300">广东省东莞市长安镇涌头社区宏业中路4号汇通科技园</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fa fa-phone"></i>
+                            <span class="text-gray-300">138-0963-0779</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fa fa-weixin mt-0.75"></i>
+                            <span class="text-gray-300">13809630779</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-white/10 pt-8 text-center text-gray-400 text-sm">
+                <p>© 2023 东莞春鸣精密机械有限公司 版权所有 | 粤ICP备XXXXXXXX号</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 移动端菜单切换
+        const menuBtn = document.getElementById('menuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            menuBtn.innerHTML = mobileMenu.classList.contains('hidden') 
+                ? '<i class="fa fa-bars"></i>' 
+                : '<i class="fa fa-times"></i>';
+        });
+
+        // 导航栏滚动效果
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('py-2', 'shadow-md');
+                navbar.classList.remove('py-4');
+            } else {
+                navbar.classList.add('py-4');
+                navbar.classList.remove('py-2', 'shadow-md');
+            }
+        });
+
+        // 从URL获取产品参数并高亮显示对应产品
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const productName = params.get('product');
+            
+            if (productName) {
+                // 查找对应产品卡片并添加高亮效果
+                const productCards = document.querySelectorAll('.card-hover');
+                productCards.forEach(card => {
+                    if (card.querySelector('h3').textContent.includes(productName)) {
+                        card.classList.add('ring-2', 'ring-accent');
+                        // 滚动到该产品位置
+                        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>产品管理 - 后台管理系统</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#165DFF',
+                        success: '#52C41A',
+                        warning: '#FAAD14',
+                        danger: '#F5222D',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-100">
+    <!-- 顶部导航 -->
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <h1 class="text-xl font-bold text-primary">后台管理系统</h1>
+            <div class="flex items-center space-x-4">
+                <span class="text-gray-600">管理员</span>
+                <a href="login.html" class="text-danger hover:text-danger/80 transition-colors">
+                    <i class="fa fa-sign-out mr-1"></i>退出
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主要内容区 -->
+    <main class="container mx-auto px-4 py-6">
+        <!-- 面包屑导航 -->
+        <div class="mb-4 text-sm text-gray-500">
+            <span>首页</span> / <span class="text-primary">产品管理</span>
+        </div>
+
+        <!-- 操作工具栏 -->
+        <div class="bg-white p-4 rounded-lg shadow-sm mb-4 flex justify-between items-center">
+            <h2 class="text-lg font-semibold">产品列表</h2>
+            <button id="addProductBtn" class="bg-primary text-white px-4 py-2 rounded-md hover:bg-primary/90 transition-colors flex items-center">
+                <i class="fa fa-plus mr-2"></i>添加产品
+            </button>
+        </div>
+
+        <!-- 产品表格 -->
+        <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+            <table class="min-w-full">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">产品编号</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">产品图片</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">产品名称</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">产品描述</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">价格</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">操作</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200" id="productTableBody">
+                    <!-- 产品数据将通过JavaScript动态生成 -->
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <!-- 添加/编辑产品模态框 -->
+    <div id="productModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+            <div class="p-6 border-b">
+                <h3 class="text-lg font-semibold" id="modalTitle">添加产品</h3>
+            </div>
+            <div class="p-6">
+                <form id="productForm">
+                    <input type="hidden" id="productId">
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">产品名称</label>
+                        <input type="text" id="productName" class="w-full px-3 py-2 border border-gray-300 rounded-md" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">产品描述</label>
+                        <textarea id="productDescription" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-md" required></textarea>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">价格</label>
+                        <input type="number" id="productPrice" class="w-full px-3 py-2 border border-gray-300 rounded-md" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">产品图片URL</label>
+                        <input type="text" id="productImage" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                    </div>
+                    <div class="flex justify-end space-x-3">
+                        <button type="button" id="closeModalBtn" class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">取消</button>
+                        <button type="submit" class="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90">保存</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 模拟产品数据
+        let products = [
+            { id: 1, name: 'UA3P 超精密车床', description: '高精度数控车床，适用于精密零件加工', price: 1280000, image: 'https://example.com/ua3p.jpg' },
+            { id: 2, name: 'FANUC 加工中心', description: '日本进口FANUC系统加工中心', price: 980000, image: 'https://example.com/fanuc.jpg' },
+            { id: 3, name: 'TRIOPTICS 测量仪', description: '德国进口光学测量设备', price: 780000, image: 'https://example.com/trioptics.jpg' }
+        ];
+        let nextId = 4;
+
+        // DOM元素
+        const productTableBody = document.getElementById('productTableBody');
+        const addProductBtn = document.getElementById('addProductBtn');
+        const productModal = document.getElementById('productModal');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        const productForm = document.getElementById('productForm');
+        const modalTitle = document.getElementById('modalTitle');
+
+        // 渲染产品列表
+        function renderProducts() {
+            productTableBody.innerHTML = '';
+            products.forEach(product => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${product.id}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="h-12 w-12 rounded-md overflow-hidden">
+                            <img src="${product.image || 'https://via.placeholder.com/100'}" alt="${product.name}" class="h-full w-full object-cover">
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${product.name}</td>
+                    <td class="px-6 py-4 text-sm text-gray-500 max-w-xs truncate">${product.description}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">¥${product.price.toLocaleString()}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                        <button onclick="editProduct(${product.id})" class="text-primary hover:text-primary/80 mr-4">
+                            <i class="fa fa-edit mr-1"></i>编辑
+                        </button>
+                        <button onclick="deleteProduct(${product.id})" class="text-danger hover:text-danger/80">
+                            <i class="fa fa-trash mr-1"></i>删除
+                        </button>
+                    </td>
+                `;
+                productTableBody.appendChild(tr);
+            });
+        }
+
+        // 打开添加产品模态框
+        addProductBtn.addEventListener('click', () => {
+            modalTitle.textContent = '添加产品';
+            productForm.reset();
+            document.getElementById('productId').value = '';
+            productModal.classList.remove('hidden');
+        });
+
+        // 关闭模态框
+        closeModalBtn.addEventListener('click', () => {
+            productModal.classList.add('hidden');
+        });
+
+        // 点击模态框外部关闭
+        productModal.addEventListener('click', (e) => {
+            if (e.target === productModal) {
+                productModal.classList.add('hidden');
+            }
+        });
+
+        // 编辑产品
+        window.editProduct = function(id) {
+            const product = products.find(p => p.id === id);
+            if (product) {
+                modalTitle.textContent = '编辑产品';
+                document.getElementById('productId').value = product.id;
+                document.getElementById('productName').value = product.name;
+                document.getElementById('productDescription').value = product.description;
+                document.getElementById('productPrice').value = product.price;
+                document.getElementById('productImage').value = product.image || '';
+                productModal.classList.remove('hidden');
+            }
+        };
+
+        // 删除产品
+        window.deleteProduct = function(id) {
+            if (confirm('确定要删除这个产品吗？')) {
+                products = products.filter(p => p.id !== id);
+                renderProducts();
+            }
+        };
+
+        // 提交产品表单
+        productForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const id = document.getElementById('productId').value;
+            const name = document.getElementById('productName').value;
+            const description = document.getElementById('productDescription').value;
+            const price = parseFloat(document.getElementById('productPrice').value);
+            const image = document.getElementById('productImage').value;
+
+            if (id) {
+                // 更新产品
+                const index = products.findIndex(p => p.id === parseInt(id));
+                if (index !== -1) {
+                    products[index] = { ...products[index], name, description, price, image };
+                }
+            } else {
+                // 添加新产品
+                products.push({ id: nextId++, name, description, price, image });
+            }
+
+            renderProducts();
+            productModal.classList.add('hidden');
+        });
+
+        // 页面加载时渲染产品列表
+        document.addEventListener('DOMContentLoaded', renderProducts);
+    </script>
+</body>
+</html>

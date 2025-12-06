@@ -1,0 +1,28 @@
+{% extends "frontend/base.html" %}
+
+{% block title %}服务器错误 - 上海春木精密机械有限公司{% endblock %}
+
+{% block content %}
+<section class="error-section py-16 text-center">
+    <div class="container">
+        <div class="max-w-2xl mx-auto bg-white p-8 rounded-xl shadow-md">
+            <div class="text-9xl font-bold text-red-100 mb-4">500</div>
+            <h2 class="text-3xl font-bold text-gray-800 mb-4">服务器内部错误</h2>
+            <p class="text-gray-600 mb-8">抱歉，服务器暂时出现问题，请稍后再试。</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4 mb-8">
+                <a href="{{ url_for('main.index') }}" class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors duration-300">
+                    <i class="fas fa-home mr-2"></i> 返回首页
+                </a>
+                <button onclick="window.location.reload()" class="inline-flex items-center px-6 py-3 bg-gray-200 text-gray-800 font-medium rounded-lg hover:bg-gray-300 transition-colors duration-300">
+                    <i class="fas fa-sync-alt mr-2"></i> 刷新页面
+                </button>
+            </div>
+            <div class="mt-8">
+                <p class="text-sm text-gray-500">我们的技术团队已收到错误通知，正在努力解决问题。</p>
+                <p class="text-sm text-gray-500 mt-2">如果问题持续存在，请联系我们的客服团队：</p>
+                <a href="{{ url_for('main.contact') }}" class="text-blue-600 hover:underline mt-1 inline-block">联系我们</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
