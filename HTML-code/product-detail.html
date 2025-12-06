@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>产品详情 - 东莞春鸣精密机械有限公司</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0A3D62',
+                        secondary: '#3C6382',
+                        accent: '#60A3BC',
+                        light: '#F8FAFC',
+                        dark: '#1E293B'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif', 'PingFang SC', 'Microsoft YaHei']
+                    }
+                }
+            }
+        }
+        // 获取URL参数（如?id=1）
+        function getUrlParam(name) {
+            const params = new URLSearchParams(window.location.search);
+            return params.get(name);
+            }
+
+        // 获取当前产品ID
+        const productId = getUrlParam('id');
+        console.log('当前产品ID：', productId); // 输出：1、2、3等
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .section-padding {
+                @apply py-16 md:py-24;
+            }
+            .card-hover {
+                @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
+            }
+            .btn-primary {
+                @apply bg-primary text-white px-6 py-3 rounded-md hover:bg-accent transition-colors font-medium inline-block;
+            }
+            .btn-outline {
+                @apply border-2 border-primary text-primary px-6 py-3 rounded-md hover:bg-primary hover:text-white transition-colors font-medium inline-block;
+            }
+            .product-image-thumb {
+                @apply w-20 h-20 object-cover cursor-pointer border-2 border-transparent hover:border-accent transition-colors;
+            }
+            .product-image-thumb.active {
+                @apply border-accent;
+            }
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-800 bg-light">
+    <!-- 导航栏 (与原页面相同) -->
+    <header id="navbar" class="fixed w-full bg-white/90 backdrop-blur-sm z-50 transition-all duration-300 py-4">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="flex justify-between items-center">
+                <!-- Logo -->
+                <a href="index.html" class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-primary rounded-md flex items-center justify-center">
+                        <i class="fa fa-cogs text-white text-xl"></i>
+                    </div>
+                    <span class="text-xl font-bold text-primary">春鸣精密机械</span>
+                </a>
+
+                <!-- 桌面端导航 -->
+                <nav class="hidden md:flex items-center gap-8">
+                    <a href="index.html#home" class="text-gray-700 hover:text-primary transition-colors">首页</a>
+                    <a href="index.html#about" class="text-gray-700 hover:text-primary transition-colors">关于我们</a>
+                    <a href="index.html#technology" class="text-gray-700 hover:text-primary transition-colors">核心业务</a>
+                    <a href="products.html" class="text-primary font-medium">产品中心</a>
+                    <a href="index.html#contact" class="btn-primary">联系我们</a>
+                </nav>
+
+                <!-- 移动端菜单按钮 -->
+                <button id="menuBtn" class="md:hidden text-gray-700 text-xl">
+                    <i class="fa fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- 移动端导航菜单 -->
+        <div id="mobileMenu" class="md:hidden hidden bg-white border-t mt-4">
+            <div class="container mx-auto px-4 py-3 flex flex-col gap-4">
+                <a href="index.html#home" class="text-gray-700 hover:text-primary py-2 transition-colors">首页</a>
+                <a href="index.html#about" class="text-gray-700 hover:text-primary py-2 transition-colors">关于我们</a>
+                <a href="index.html#technology" class="text-gray-700 hover:text-primary py-2 transition-colors">核心业务</a>
+                <a href="products.html" class="text-primary font-medium py-2">产品中心</a>
+                <a href="index.html#contact" class="btn-primary text-center">联系我们</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 面包屑导航 -->
+    <section class="pt-24 pb-4 bg-white">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="text-sm text-gray-500">
+                <a href="index.html" class="hover:text-primary">首页</a> 
+                <i class="fa fa-angle-right inline-block mx-2 text-gray-400"></i>
+                <a href="products.html" class="hover:text-primary">产品中心</a>
+                <i class="fa fa-angle-right inline-block mx-2 text-gray-400"></i>
+                <span id="productBreadcrumb" class="text-gray-700">产品详情</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- 产品详情区 -->
+    <section class="py-12 bg-light">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="flex flex-col lg:flex-row gap-12">
+                <!-- 产品图片区 -->
+                <div class="lg:w-1/2">
+                    <div class="bg-white p-6 rounded-lg shadow-md mb-4">
+                        <img id="mainProductImage" src="https://p11-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/f413055e82c842048c4e52fd647b4757.jpg~tplv-a9rns2rl98-24:720:720.image" alt="产品图片" class="w-full h-auto rounded">
+                    </div>
+                    <div class="grid grid-cols-4 gap-4">
+                        <img src="https://p11-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/f413055e82c842048c4e52fd647b4757.jpg~tplv-a9rns2rl98-24:720:720.image" alt="产品图片1" class="product-image-thumb active" onclick="changeMainImage(this)">
+                        <img src="https://p3-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/e3185756972040bbbcbc3245c3d5590a.jpg~tplv-a9rns2rl98-24:720:720.image" alt="产品图片2" class="product-image-thumb" onclick="changeMainImage(this)">
+                        <img src="https://p11-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/b9b3cb304d4b497eb7b687dfc64d369f.jpg~tplv-a9rns2rl98-24:720:720.image" alt="产品图片3" class="product-image-thumb" onclick="changeMainImage(this)">
+                        <img src="https://picsum.photos/id/119/600/400" alt="产品图片4" class="product-image-thumb" onclick="changeMainImage(this)">
+                    </div>
+                </div>
+                
+                <!-- 产品信息区 -->
+                <div class="lg:w-1/2">
+                    <span class="inline-block bg-primary/10 text-primary px-3 py-1 rounded-full text-sm mb-3">精密测量仪器</span>
+                    <h1 id="productTitle" class="text-3xl md:text-4xl font-bold text-primary mb-6">Taylor Hobson系列</h1>
+                    
+                    <div class="flex items-center gap-2 mb-6">
+                        <div class="flex">
+                            <i class="fa fa-star text-yellow-400"></i>
+                            <i class="fa fa-star text-yellow-400"></i>
+                            <i class="fa fa-star text-yellow-400"></i>
+                            <i class="fa fa-star text-yellow-400"></i>
+                            <i class="fa fa-star text-yellow-400"></i>
+                        </div>
+                        <span class="text-gray-600">(12条评价)</span>
+                    </div>
+                    
+                    <div class="mb-8">
+                        <span class="text-gray-500">参考价格：</span>
+                        <span class="text-2xl font-bold text-primary ml-2">¥ 128,000 - ¥ 368,000</span>
+                        <span class="text-gray-500 ml-2">（根据型号配置）</span>
+                    </div>
+                    
+                    <div class="border-t border-b border-gray-200 py-6 mb-6">
+                        <p class="text-gray-600 mb-4">
+                            英国泰勒霍普森精密测量仪器，包括圆度仪、粗糙度仪等，精度高，稳定性好，适用于高端制造领域。
+                        </p>
+                        <p class="text-gray-600">
+                            该系列产品采用先进的光学测量技术，能够实现纳米级精度测量，广泛应用于航空航天、汽车制造、精密模具等高端制造领域。
+                        </p>
+                    </div>
+                    
+                    <div class="space-y-4 mb-8">
+                        <div class="flex items-start gap-4">
+                            <div class="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center text-primary mt-0.5 flex-shrink-0">
+                                <i class="fa fa-check text-sm"></i>
+                            </div>
+                            <span class="text-gray-600">高精度测量，重复精度可达0.01μm</span>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center text-primary mt-0.5 flex-shrink-0">
+                                <i class="fa fa-check text-sm"></i>
+                            </div>
+                            <span class="text-gray-600">全自动测量流程，减少人为误差</span>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center text-primary mt-0.5 flex-shrink-0">
+                                <i class="fa fa-check text-sm"></i>
+                            </div>
+                            <span class="text-gray-600">智能数据分析软件，支持多种数据格式导出</span>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center text-primary mt-0.5 flex-shrink-0">
+                                <i class="fa fa-check text-sm"></i>
+                            </div>
+                            <span class="text-gray-600">提供上门安装调试和操作培训服务</span>
+                        </div>
+                    </div>
+                    
+                    <div class="flex flex-wrap gap-4 mb-8">
+                        <a href="index.html#contact" class="btn-primary">
+                            咨询报价
+                        </a>
+                        <a href="index.html#contact" class="btn-outline">
+                            预约演示
+                        </a>
+                    </div>
+                    
+                    <div class="flex items-center gap-4 text-gray-600 text-sm">
+                        <div class="flex items-center gap-2">
+                            <i class="fa fa-truck"></i>
+                            <span>支持全国配送</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fa fa-shield"></i>
+                            <span>一年质保服务</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fa fa-refresh"></i>
+                            <span>终身维护支持</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 产品详细参数 -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="border-b border-gray-200 mb-8">
+                <div class="flex flex-wrap">
+                    <button class="px-6 py-4 font-medium text-primary border-b-2 border-primary">详细参数</button>
+                    <button class="px-6 py-4 font-medium text-gray-500 hover:text-primary">应用案例</button>
+                    <button class="px-6 py-4 font-medium text-gray-500 hover:text-primary">技术文档</button>
+                    <button class="px-6 py-4 font-medium text-gray-500 hover:text-primary">用户评价</button>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8">
+                <div>
+                    <h3 class="text-xl font-bold text-primary mb-4">基本参数</h3>
+                    <table class="w-full">
+                        <tbody>
+                            <tr class="border-b border-gray-100">
+                                <td class="py-3 text-gray-600">品牌</td>
+                                <td class="py-3 font-medium">Taylor Hobson</td>
+                            </tr>
+                            <tr class="border-b border-gray-100">

@@ -1,0 +1,309 @@
+{% extends "admin/base.html" %}
+
+{% block title %}管理产品图库{% endblock %}
+
+{% block content %}
+    <div class="mb-6">
+        <div class="flex items-center justify-between">
+            <div>
+                <h1 class="text-2xl font-bold text-primary">管理产品图库</h1>
+                <p class="text-gray-500 text-sm mt-1">{{ product.name }}</p>
+            </div>
+            <a href="{{ url_for('admin.edit_product', product_id=product.id) }}" class="btn-outline">
+                <i class="fa fa-arrow-left mr-2"></i>返回编辑产品
+            </a>
+        </div>
+    </div>
+
+    <!-- 上传新图片部分 -->
+    <div class="card mb-6">
+        <div class="mb-4">
+            <h3 class="font-bold text-lg">上传新图片</h3>
+        </div>
+        <form method="POST" enctype="multipart/form-data" id="upload-form" action="{{ url_for('admin.manage_product_images', product_id=product.id) }}">
+            {% if config.WTF_CSRF_ENABLED %}
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            {% endif %}
+            
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div class="lg:col-span-2">
+                    <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center cursor-pointer hover:border-primary hover:bg-primary/5 transition-colors" id="drop-area">
+                        <i class="fa fa-cloud-upload text-5xl text-gray-400 mb-4"></i>
+                        <h5 class="text-lg font-medium mb-2">拖放图片到此处或点击上传</h5>
+                        <p class="text-sm text-gray-500 mb-4">支持多张图片同时上传 (JPG, JPEG, PNG)</p>
+                        {{ form.image(class="hidden", id="image-upload", multiple="multiple") }}
+                        <button type="button" onclick="document.getElementById('image-upload').click(); event.stopPropagation();" class="btn-primary">
+                            <i class="fa fa-upload mr-2"></i>选择图片
+                        </button>
+                        <p class="text-xs text-gray-500 mt-4">
+                            每张图片最大 5MB | 最多上传 20 张图片 | 建议尺寸: 800x600 像素
+                        </p>
+                    </div>
+                    
+                    {% if form.image.errors %}
+                        <div class="mt-2 text-sm text-red-600">
+                            {% for error in form.image.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                
+                <div>
+                    <div id="preview-container" class="hidden">
+                        <h5 class="font-bold mb-3">上传预览</h5>
+                        <div id="preview-images" class="grid grid-cols-2 gap-2 mb-4"></div>
+                        <button type="button" class="w-full btn-primary text-center" id="confirm-upload">
+                            <i class="fa fa-check mr-2"></i>确认上传
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- 现有图库部分 -->
+    <div class="card">
+        <div class="mb-4">
+            <h3 class="font-bold text-lg">产品图库 <span class="text-sm font-normal text-gray-500">({{ product_images|length }} 张图片)</span></h3>
+        </div>
+        {% if product_images %}
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4" id="gallery-container">
+                {% for image in product_images %}
+                <div class="relative" id="image-container-{{ image.id }}">
+                    <div class="relative group">
+                        <img src="{{ url_for('main.get_gallery_image', image_id=image.id) }}" 
+                             class="w-full h-48 object-cover rounded-lg" alt="产品图片">
+                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-opacity rounded-lg flex items-center justify-center">
+                            <button type="button" 
+                                    onclick="showDeleteModal({{ image.id }}, '{{ url_for('main.get_gallery_image', image_id=image.id) }}')" 
+                                    class="hidden group-hover:block text-white bg-red-500 hover:bg-red-600 rounded-full p-2">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <p class="text-xs text-gray-500 text-center mt-2">{{ image.created_at.strftime('%Y-%m-%d') }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="text-center py-12">
+                <i class="fa fa-images text-6xl text-gray-300 mb-4"></i>
+                <p class="text-gray-500 mb-2">暂无图库图片</p>
+                <p class="text-sm text-gray-400">上传图片以丰富产品展示</p>
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- 删除确认模态框 -->
+    <div id="deleteModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-md">
+            <div class="p-6 border-b border-gray-200">
+                <h3 class="text-lg font-bold text-primary">确认删除</h3>
+            </div>
+            <div class="p-6">
+                <p class="text-gray-700 mb-4">确定要删除这张图片吗？此操作不可撤销。</p>
+                <img id="deletePreviewImg" src="" class="w-full h-48 object-cover rounded mb-4" alt="要删除的图片">
+                <div class="flex justify-end gap-3">
+                    <button type="button" onclick="hideDeleteModal()" class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">
+                        取消
+                    </button>
+                    <form id="deleteForm" method="POST" action="" style="display: inline;">
+                        {% if config.WTF_CSRF_ENABLED %}
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        {% endif %}
+                        <button type="submit" class="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600">
+                            确认删除
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    let selectedFiles = [];
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        const dropArea = document.getElementById('drop-area');
+        const imageUpload = document.getElementById('image-upload');
+        const previewContainer = document.getElementById('preview-container');
+        const previewImages = document.getElementById('preview-images');
+        const uploadForm = document.getElementById('upload-form');
+        const confirmUpload = document.getElementById('confirm-upload');
+        
+        // 点击上传区域触发文件选择
+        dropArea.addEventListener('click', function() {
+            imageUpload.click();
+        });
+        
+        // 拖放功能
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropArea.addEventListener(eventName, function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }, false);
+        });
+        
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropArea.addEventListener(eventName, function() {
+                dropArea.classList.add('border-primary', 'bg-primary/5');
+            }, false);
+        });
+        
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropArea.addEventListener(eventName, function() {
+                dropArea.classList.remove('border-primary', 'bg-primary/5');
+            }, false);
+        });
+        
+        dropArea.addEventListener('drop', function(e) {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            handleFiles(files);
+        }, false);
+        
+        // 文件选择
+        imageUpload.addEventListener('change', function() {
+            handleFiles(this.files);
+        });
+        
+        // 处理选择的文件
+        function handleFiles(files) {
+            if (!files.length) return;
+            
+            if (selectedFiles.length + files.length > 20) {
+                alert('最多只能上传20张图片');
+                return;
+            }
+            
+            Array.from(files).forEach(file => {
+                if (!['image/jpeg', 'image/png', 'image/jpg'].includes(file.type)) {
+                    alert(`${file.name} 不是支持的图片格式，请上传JPG或PNG格式图片`);
+                    return;
+                }
+                
+                if (file.size > 5 * 1024 * 1024) {
+                    alert(`${file.name} 文件大小超过5MB限制`);
+                    return;
+                }
+                
+                selectedFiles.push(file);
+                
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const previewDiv = document.createElement('div');
+                    previewDiv.className = 'relative';
+                    previewDiv.innerHTML = `
+                        <img src="${e.target.result}" class="w-full h-24 object-cover rounded">
+                        <button type="button" class="absolute top-0 right-0 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs remove-preview" data-index="${selectedFiles.length - 1}">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    `;
+                    previewImages.appendChild(previewDiv);
+                };
+                reader.readAsDataURL(file);
+            });
+            
+            if (selectedFiles.length > 0) {
+                previewContainer.classList.remove('hidden');
+            }
+        }
+        
+        // 移除预览项
+        previewImages.addEventListener('click', function(e) {
+            if (e.target.closest('.remove-preview')) {
+                const btn = e.target.closest('.remove-preview');
+                const index = parseInt(btn.getAttribute('data-index'));
+                btn.closest('.relative').remove();
+                selectedFiles.splice(index, 1);
+                document.querySelectorAll('.remove-preview').forEach((btn, i) => {
+                    btn.setAttribute('data-index', i);
+                });
+                if (selectedFiles.length === 0) {
+                    previewContainer.classList.add('hidden');
+                    imageUpload.value = '';
+                }
+            }
+        });
+        
+        // 确认上传
+        if (confirmUpload) {
+            confirmUpload.addEventListener('click', function() {
+                if (selectedFiles.length === 0) {
+                    alert('请先选择图片');
+                    return;
+                }
+                
+                // 创建FormData
+                const formData = new FormData();
+                
+                // 添加CSRF token
+                const csrfToken = document.querySelector('[name="csrf_token"]');
+                if (csrfToken) {
+                    formData.append('csrf_token', csrfToken.value);
+                }
+                
+                // 添加所有选中的文件（使用相同的字段名，支持多文件）
+                selectedFiles.forEach(file => {
+                    formData.append('image', file);
+                });
+                
+                // 显示上传中提示
+                confirmUpload.disabled = true;
+                const originalText = confirmUpload.innerHTML;
+                confirmUpload.innerHTML = '<i class="fa fa-spinner fa-spin mr-2"></i>上传中...';
+                
+                // 获取表单action
+                const formAction = uploadForm.getAttribute('action') || uploadForm.action;
+                
+                // 使用fetch提交表单
+                fetch(formAction, {
+                    method: 'POST',
+                    body: formData
+                }).then(response => {
+                    if (response.ok || response.redirected) {
+                        // 上传成功，刷新页面
+                        window.location.reload();
+                    } else {
+                        return response.text().then(text => {
+                            console.error('上传失败:', text);
+                            alert('上传失败，请检查控制台查看详细错误信息');
+                            confirmUpload.disabled = false;
+                            confirmUpload.innerHTML = originalText;
+                        });
+                    }
+                }).catch(error => {
+                    console.error('上传错误:', error);
+                    alert('上传失败: ' + error.message);
+                    confirmUpload.disabled = false;
+                    confirmUpload.innerHTML = originalText;
+                });
+            });
+        }
+    });
+    
+    function showDeleteModal(imageId, imageUrl) {
+        const modal = document.getElementById('deleteModal');
+        const form = document.getElementById('deleteForm');
+        const img = document.getElementById('deletePreviewImg');
+        
+        img.src = imageUrl;
+        form.action = '/admin/products/{{ product.id }}/images/' + imageId + '/delete';
+        modal.classList.remove('hidden');
+    }
+    
+    function hideDeleteModal() {
+        document.getElementById('deleteModal').classList.add('hidden');
+    }
+    
+    // 点击模态框外部关闭
+    document.getElementById('deleteModal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            hideDeleteModal();
+        }
+    });
+</script>
+{% endblock %}

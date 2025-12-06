@@ -1,0 +1,151 @@
+{% extends "frontend/base.html" %}
+
+{% block title %}产品中心 - 东莞春鸣精密机械有限公司{% endblock %}
+
+{% block content %}
+    <!-- 产品列表标题区 -->
+    <section class="pt-32 pb-12 bg-gradient-to-br from-primary/5 to-secondary/5">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="text-center">
+                <span class="inline-block bg-primary/10 text-primary px-3 py-1 rounded-full text-sm mb-3">产品中心</span>
+                <h1 class="text-3xl md:text-4xl font-bold text-primary mb-4">精密设备展示</h1>
+                <div class="w-20 h-1 bg-accent mx-auto mb-6"></div>
+                <p class="text-gray-600 max-w-3xl mx-auto">
+                    提供各类高品质精密测量仪器和加工设备，包括全新及优质二手设备
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 产品筛选区 -->
+    <section class="py-8 bg-white">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="flex flex-wrap gap-4 mb-2">
+                <a href="{{ url_for('main.products') }}" 
+                   class="px-4 py-2 rounded-md transition-colors {{ 'bg-primary text-white' if not current_category else 'bg-gray-100 hover:bg-primary/10' }}">
+                    全部产品
+                </a>
+                {% if categories %}
+                    {% for category in categories %}
+                    <a href="{{ url_for('main.products', category=category.id) }}" 
+                       class="px-4 py-2 rounded-md transition-colors {{ 'bg-primary text-white' if current_category and current_category.id == category.id else 'bg-gray-100 hover:bg-primary/10' }}">
+                        {{ category.name }}
+                    </a>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+    <!-- 产品列表区 -->
+    <section class="py-12 bg-light">
+        <div class="container mx-auto px-4 md:px-8">
+            {% if products %}
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {% for product in products %}
+                <div class="bg-white rounded-lg overflow-hidden shadow-md card-hover cursor-pointer" 
+                     onclick="window.location='{{ url_for('main.product_detail', product_id=product.id) }}'">
+                    <div class="h-60 overflow-hidden">
+                        {% if product.main_image %}
+                        <img src="{{ url_for('main.get_product_image', product_id=product.id) }}" 
+                             alt="{{ product.name }}" 
+                             class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                        {% else %}
+                        <img src="https://via.placeholder.com/400x300?text=产品图片" 
+                             alt="{{ product.name }}" 
+                             class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                        {% endif %}
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-primary mb-3">{{ product.name }}</h3>
+                        <p class="text-gray-600 mb-4" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
+                            {{ product.description }}
+                        </p>
+                        <a href="{{ url_for('main.product_detail', product_id=product.id) }}" 
+                           class="text-accent hover:underline flex items-center gap-2">
+                            查看详情 <i class="fa fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            
+            <!-- 分页 -->
+            {% if pagination and pagination.pages > 1 %}
+            <div class="flex justify-center mt-12 gap-2">
+                {% if pagination.has_prev %}
+                <a href="{{ url_for('main.products', page=pagination.prev_num, category=current_category.id if current_category else None) }}" 
+                   class="w-10 h-10 flex items-center justify-center rounded-md border border-gray-300 hover:border-primary hover:text-primary transition-colors">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                {% endif %}
+                
+                {% for page_num in pagination.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+                    {% if page_num %}
+                        {% if page_num == pagination.page %}
+                        <span class="w-10 h-10 flex items-center justify-center rounded-md bg-primary text-white">{{ page_num }}</span>
+                        {% else %}
+                        <a href="{{ url_for('main.products', page=page_num, category=current_category.id if current_category else None) }}" 
+                           class="w-10 h-10 flex items-center justify-center rounded-md border border-gray-300 hover:border-primary hover:text-primary transition-colors">
+                            {{ page_num }}
+                        </a>
+                        {% endif %}
+                    {% else %}
+                    <span class="w-10 h-10 flex items-center justify-center">...</span>
+                    {% endif %}
+                {% endfor %}
+                
+                {% if pagination.has_next %}
+                <a href="{{ url_for('main.products', page=pagination.next_num, category=current_category.id if current_category else None) }}" 
+                   class="w-10 h-10 flex items-center justify-center rounded-md border border-gray-300 hover:border-primary hover:text-primary transition-colors">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                {% endif %}
+            </div>
+            {% endif %}
+            {% else %}
+            <div class="text-center py-16">
+                <i class="fa fa-box-open text-6xl text-gray-300 mb-4"></i>
+                <h3 class="text-2xl font-bold text-gray-600 mb-2">暂无产品</h3>
+                <p class="text-gray-500 mb-6">没有找到符合条件的产品，请尝试其他筛选条件</p>
+                {% if current_category %}
+                <a href="{{ url_for('main.products') }}" class="btn-outline inline-block">
+                    <i class="fa fa-redo mr-2"></i>重置筛选条件
+                </a>
+                {% endif %}
+            </div>
+            {% endif %}
+        </div>
+    </section>
+
+    <!-- 联系我们 (简化版) -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4 md:px-8 text-center">
+            <h2 class="text-2xl md:text-3xl font-bold text-primary mb-4">需要了解更多产品信息？</h2>
+            <p class="text-gray-600 max-w-2xl mx-auto mb-8">
+                我们的专业团队将为您提供详细的产品介绍和技术支持，欢迎随时联系我们
+            </p>
+            <a href="{{ url_for('main.contact') }}" class="btn-primary">
+                联系我们
+            </a>
+        </div>
+    </section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // 导航栏滚动效果
+    const navbar = document.getElementById('navbar');
+    if (navbar) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('py-2', 'shadow-md');
+                navbar.classList.remove('py-4');
+            } else {
+                navbar.classList.add('py-4');
+                navbar.classList.remove('py-2', 'shadow-md');
+            }
+        });
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,338 @@
+{% extends "frontend/base.html" %}
+
+{% block title %}首页 - 东莞春鸣精密机械有限公司{% endblock %}
+
+{% block content %}
+    <!-- 英雄区 -->
+    <section id="home" class="pt-32 pb-20 md:pt-40 md:pb-32 bg-gradient-to-b from-white to-light">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <div class="md:w-1/2">
+                    <h1 class="text-[clamp(2rem,5vw,3.5rem)] font-bold leading-tight text-primary mb-6">
+                        精密制造 · 赋能产业升级
+                    </h1>
+                    <p class="text-lg md:text-xl text-gray-600 mb-8 max-w-lg">
+                        扎根制造业名城东莞，东莞春鸣精密机械有限公司以"精筑机械服务生态，赋能产业高效运转"为使命，专注于精密设备全生命周期服务，构建了集维修、保养、回收、售卖于一体的综合性服务体系。凭借对行业痛点的深刻洞察与技术沉淀，公司已成为当地及周边企业信赖的精密机械服务伙伴，为电子制造、汽车零部件、光学仪器等多领域客户提供专业解决方案。
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="{{ url_for('main.contact') }}" class="btn-primary">
+                            咨询合作
+                        </a>
+                        <a href="{{ url_for('main.products') }}" class="btn-outline">
+                            查看产品
+                        </a>
+                    </div>
+                    <div class="flex items-center gap-6 mt-10">
+                        <div class="flex flex-col">
+                            <span class="text-3xl font-bold text-primary">专业维修</span>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="text-3xl font-bold text-primary">定制保养</span>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="text-3xl font-bold text-primary">高效回收</span>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="text-3xl font-bold text-primary">品质售卖</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:w-1/2">
+                    <img src="https://picsum.photos/id/1006/800/600" alt="精密机械生产车间" class="w-full h-auto rounded-lg shadow-xl">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 关于我们 -->
+    <section id="about" class="section-padding bg-white">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-primary mb-4">关于春鸣</h2>
+                <div class="w-20 h-1 bg-accent mx-auto mb-6"></div>
+                <p class="text-gray-600 max-w-3xl mx-auto">
+                    深耕精密机械领域多年，以品质为核心，以可靠为基石，助力客户创造更大价值
+                </p>
+            </div>
+
+            <div class="flex flex-col md:flex-row gap-12 items-center">
+                <div class="md:w-1/2">
+                    <img src="https://picsum.photos/id/1047/800/600" alt="公司环境" class="w-full h-auto rounded-lg shadow-lg">
+                </div>
+                <div class="md:w-1/2">
+                    <h3 class="text-2xl font-bold text-primary mb-4">企业简介</h3>
+                    <p class="text-gray-600 mb-6">
+                        东莞春鸣精密机械有限公司聚焦精密设备全生命周期服务，构建了维修、保养、回收、售卖四大核心业务板块，为电子制造、汽车零部件、光学仪器等多领域客户提供综合性解决方案，是广大用户值得信赖的精密机械服务伙伴。
+                    </p>
+                    <p class="text-gray-600 mb-6">
+                        公司不仅有专业的维修、保养人员，可靠的仪器评估人员，更有完善、迅速、友好的售后服务。无论您是有咨询需求、需要技术支持，还是遇到售后问题，都能得到及时响应，专业人员会全程跟进对接，用耐心细致的服务为您排忧解难，让每一位用户在合作全程都能感受到省心、放心、暖心的体验。
+                    </p>
+                    <div class="grid grid-cols-2 gap-4 mb-8">
+                        <div class="flex items-center gap-3">
+                            <i class="fa fa-check-circle text-accent text-xl"></i>
+                            <span>忠实诚信企业</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <i class="fa fa-check-circle text-accent text-xl"></i>
+                            <span>维修技术精湛</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <i class="fa fa-check-circle text-accent text-xl"></i>
+                            <span>定制解决方案</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <i class="fa fa-check-circle text-accent text-xl"></i>
+                            <span>完整售后服务</span>
+                        </div>
+                    </div>
+                    <a href="{{ url_for('main.contact') }}" class="btn-primary inline-block">
+                        了解更多
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 核心业务 -->
+    <section id="technology" class="section-padding bg-white">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-primary mb-4">核心业务</h2>
+                <div class="w-20 h-1 bg-accent mx-auto mb-6"></div>
+                <p class="text-gray-600 max-w-3xl mx-auto">
+                    专业团队，以客户为本，依托专业能力为客户解决问题
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 mb-16">
+                <!-- 业务1 -->
+                <div class="bg-light p-8 rounded-lg text-center card-hover">
+                    <div class="tech-icon">
+                        <i class="fa fa-microchip"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-primary mb-3">专业精密维修</h3>
+                    <p class="text-gray-600">
+                        公司组建专项维修团队，聚焦PLC控制系统、伺服电机、精密导轨等核心部件的故障诊断与修复。短时间内即可完成关键部件成分分析与磨损检测，精准定位故障点。凭借对Taylor Hobson、FAUNC、松下UA3P等品牌设备结构的深入掌握，常见故障修复效率较行业平均水平提升40%，重大故障修复合格率达99%，最大限度减少客户停机损失。
+                    </p>
+                </div>
+
+                <!-- 业务2 -->
+                <div class="bg-light p-8 rounded-lg text-center card-hover">
+                    <div class="tech-icon">
+                        <i class="fa fa-cad"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-primary mb-3">定制机械保养</h3>
+                    <p class="text-gray-600">
+                        摒弃"一刀切"的保养模式，为客户量身定制保养方案。团队会根据设备型号、使用频率及生产环境，制定包含核心部件润滑、精度校准、性能测试等在内的精细化保养流程。对精密机床主轴、光学仪器镜头等关键部位采用无尘操作，对电子检测设备进行精度误差校准。通过系统化保养服务，帮助客户将设备故障率降低60%以上，有效延长设备使用寿命3-5年，提升设备运行稳定性与生产效率。
+                    </p>
+                </div>
+
+                <!-- 业务3 -->
+                <div class="bg-light p-8 rounded-lg text-center card-hover">
+                    <div class="tech-icon">
+                        <i class="fa fa-line-chart"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-primary mb-3">诚信高效回收</h3>
+                    <p class="text-gray-600">
+                        采用"三维检测法"进行评估：核心部件检测判断磨损程度，性能参数测试验证功能完整性，结合市场流通需求核算残值，确保报价精准公允。服务流程高效便捷，客户预约后快速响应，配备防静电包装材料与精密搬运工具，设备损坏率控制在0.1%以内。诚信合作，款项绝不拖欠，为客户提供安全、省心的设备处置方案。
+                    </p>
+                </div>
+
+                <!-- 业务4 -->
+                <div class="bg-light p-8 rounded-lg text-center card-hover">
+                    <div class="tech-icon">
+                        <i class="fa fa-users"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-primary mb-3">品质二手售卖</h3>
+                    <p class="text-gray-600">
+                        公司建立严格的设备甄选与翻新标准，售卖设备涵盖精密机床、电子检测设备、光学仪器等多个品类，均来自正规回收渠道并经过多轮检测。对核心部件完好的设备进行深度翻新，包括精度校准、性能调试及外观修复，确保设备达到近新机状态。所有售卖设备均提供质保服务，配备专业技术人员上门安装调试，并提供操作培训与售后支持，让客户以高性价比获得高品质设备，降低采购成本。
+                    </p>
+                </div>
+            </div>
+
+            <!-- 业务成果展示 -->
+            <div class="text-center mb-10">
+                <h3 class="text-2xl font-bold text-primary mb-4">业务成果展示</h3>
+                <p class="text-gray-600 max-w-3xl mx-auto">
+                    以诚信为本，视客户为准
+                </p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <img src="https://picsum.photos/id/119/400/300" alt="五轴加工中心" class="w-full h-48 object-cover rounded-md">
+                <img src="https://picsum.photos/id/129/400/300" alt="精密磨床" class="w-full h-48 object-cover rounded-md">
+                <img src="https://picsum.photos/id/139/400/300" alt="激光检测仪" class="w-full h-48 object-cover rounded-md">
+                <img src="https://picsum.photos/id/149/400/300" alt="自动化装配线" class="w-full h-48 object-cover rounded-md">
+            </div>
+        </div>
+    </section>
+
+    <!-- 产品中心 -->
+    <section id="products" class="section-padding bg-light">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-primary mb-4">产品中心</h2>
+                <div class="w-20 h-1 bg-accent mx-auto mb-6"></div>
+                <p class="text-gray-600 max-w-3xl mx-auto">
+                    涵盖精密机械核心产品系列，满足不同行业的高精度生产需求
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {% if featured_products %}
+                    {% for product in featured_products %}
+                    <div class="bg-white rounded-lg shadow-md p-6 card-hover">
+                        <div class="overflow-hidden rounded-md mb-4">
+                            {% if product.main_image %}
+                            <img src="{{ url_for('main.get_product_image', product_id=product.id) }}" 
+                                 alt="{{ product.name }}" 
+                                 class="w-full h-48 object-cover transition-transform duration-500 hover:scale-105">
+                            {% else %}
+                            <img src="https://via.placeholder.com/400x300?text=产品图片" 
+                                 alt="{{ product.name }}" 
+                                 class="w-full h-48 object-cover transition-transform duration-500 hover:scale-105">
+                            {% endif %}
+                        </div>
+                        <h3 class="text-xl font-bold text-primary mb-2">{{ product.name }}</h3>
+                        <p class="text-gray-600 mb-4" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
+                            {{ product.description }}
+                        </p>
+                        <a href="{{ url_for('main.product_detail', product_id=product.id) }}" class="text-accent hover:underline flex items-center gap-2">
+                            查看详情 <i class="fa fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="col-span-full text-center text-gray-500">
+                        <p>暂无产品数据</p>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="text-center mt-12">
+                <a href="{{ url_for('main.products') }}" class="btn-outline inline-block">
+                    查看全部产品介绍
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系我们 -->
+    <section id="contact" class="section-padding bg-white">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-primary mb-4">联系我们</h2>
+                <div class="w-20 h-1 bg-accent mx-auto mb-6"></div>
+                <p class="text-gray-600 max-w-3xl mx-auto">
+                    无论您有产品咨询、定制需求或合作意向，我们都将为您提供专业服务
+                </p>
+            </div>
+
+            <div class="flex flex-col lg:flex-row gap-12">
+                <div class="lg:w-1/2">
+                    <div class="bg-light p-8 rounded-lg h-full">
+                        <h3 class="text-2xl font-bold text-primary mb-6">联系方式</h3>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-start gap-4">
+                                <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary mt-1 flex-shrink-0">
+                                    <i class="fa fa-map-marker"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-lg mb-1">公司地址</h4>
+                                    <p class="text-gray-600">广东省东莞市长安镇涌头社区宏业中路4号汇通科技园</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start gap-4">
+                                <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary mt-1 flex-shrink-0">
+                                    <i class="fa fa-phone"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-lg mb-1">联系电话</h4>
+                                    <p class="text-gray-600">138-0963-0779（张）</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start gap-4">
+                                <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary mt-1 flex-shrink-0">
+                                    <i class="fa fa-weixin"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-lg mb-1">微信</h4>
+                                    <p class="text-gray-600">13809630779</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start gap-4">
+                                <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary mt-1 flex-shrink-0">
+                                    <i class="fa fa-clock-o"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-lg mb-1">工作时间</h4>
+                                    <p class="text-gray-600">周一至周六：8:30-17:30</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8">
+                            <h4 class="font-bold text-lg mb-4">关注我们</h4>
+                            <div class="flex gap-4">
+                                <a href="#" class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center hover:bg-accent transition-colors">
+                                    <i class="fa fa-weixin"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="lg:w-1/2">
+                    <form class="bg-light p-8 rounded-lg" method="POST" action="{{ url_for('main.contact') }}">
+                        {% if config.WTF_CSRF_ENABLED %}
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        {% endif %}
+                        <h3 class="text-2xl font-bold text-primary mb-6">在线咨询</h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <label for="name" class="block text-gray-700 mb-2">姓名 <span class="text-red-500">*</span></label>
+                                <input type="text" id="name" name="name" class="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-accent" required>
+                            </div>
+                            
+                            <div>
+                                <label for="phone" class="block text-gray-700 mb-2">电话 <span class="text-red-500">*</span></label>
+                                <input type="tel" id="phone" name="phone" class="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-accent" required>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label for="email" class="block text-gray-700 mb-2">邮箱</label>
+                            <input type="email" id="email" name="email" class="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-accent">
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label for="message" class="block text-gray-700 mb-2">留言内容 <span class="text-red-500">*</span></label>
+                            <textarea id="message" name="message" rows="5" class="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-accent" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn-primary w-full">
+                            提交咨询
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // 表单提交处理
+    const contactForm = document.querySelector('form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', (e) => {
+            // 表单验证由浏览器和Flask后端处理
+        });
+    }
+</script>
+{% endblock %}

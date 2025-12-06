@@ -1,0 +1,53 @@
+// 产品数据：id对应不同产品的详细信息
+const productData = {
+  1: { // Taylor Hobson系列
+    title: "Taylor Hobson系列",
+    category: "精密测量仪器",
+    price: "¥ 128,000 - ¥ 368,000",
+    mainImage: "https://p11-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/f413055e82c842048c4e52fd647b4757.jpg",
+    images: [
+      "https://p11-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/f413055e82c842048c4e52fd647b4757.jpg",
+      "https://picsum.photos/id/118/600/400",
+      "https://picsum.photos/id/119/600/400"
+    ],
+    description: "英国泰勒霍普森精密测量仪器，包括圆度仪、粗糙度仪等，精度高，稳定性好，适用于高端制造领域。",
+    features: [
+      "高精度测量，重复精度可达0.01μm",
+      "全自动测量流程，减少人为误差",
+      "智能数据分析软件，支持多种数据格式导出"
+    ],
+    params: {
+      "品牌": "Taylor Hobson",
+      "产地": "英国",
+      "测量范围": "0-500mm",
+      "精度等级": "0.01μm"
+    }
+  },
+  2: { // 松下UA3P
+    title: "松下UA3P",
+    category: "三次元测量机",
+    price: "¥ 98,000 - ¥ 258,000",
+    mainImage: "https://p3-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/e3185756972040bbbcbc3245c3d5590a.jpg",
+    images: [
+      "https://p3-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/e3185756972040bbbcbc3245c3d5590a.jpg",
+      "https://picsum.photos/id/106/600/400",
+      "https://picsum.photos/id/107/600/400"
+    ],
+    description: "松下高精度三次元测量机，操作简便，测量精准，广泛应用于电子、模具等行业的精密测量。",
+    features: [
+      "操作界面友好，新手易上手",
+      "测量速度快，效率提升30%",
+      "支持多种复杂零件的三维测量"
+    ],
+    params: {
+      "品牌": "松下（Panasonic）",
+      "产地": "日本",
+      "测量范围": "0-300mm",
+      "精度等级": "0.02μm"
+    }
+  },
+  3: { // FANUC慢走丝（以此类推，补充其他产品数据）
+    title: "FANUC慢走丝",
+    // ... 其他信息
+  }
+};

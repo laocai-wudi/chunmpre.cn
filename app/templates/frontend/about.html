@@ -1,0 +1,170 @@
+{% extends "frontend/base.html" %}
+
+{% block title %}关于我们 - 东莞春鸣精密机械有限公司{% endblock %}
+
+{% block content %}
+<section class="about-section py-12 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+            <h2 class="text-4xl font-bold text-primary mb-4">关于东莞春鸣精密机械有限公司</h2>
+            <div class="w-24 h-1 bg-accent mx-auto mb-6"></div>
+            <p class="text-gray-600 mt-4 max-w-2xl mx-auto">专业的精密机械设备供应商，提供高品质的测量仪器与解决方案</p>
+        </div>
+        
+        <div class="flex flex-col lg:flex-row gap-8 items-center mb-16">
+            <div class="lg:w-1/2">
+                <img src="{{ url_for('static', filename='images/company-images/chunm.jpg') }}" alt="公司形象" class="rounded-lg shadow-lg w-full h-auto">
+            </div>
+            <div class="lg:w-1/2">
+                <h3 class="text-2xl font-bold text-primary mb-4">公司简介</h3>
+                <p class="text-gray-600 mb-4">东莞春鸣精密机械有限公司聚焦精密设备全生命周期服务，构建了维修、保养、回收、售卖四大核心业务板块，为电子制造、汽车零部件、光学仪器等多领域客户提供综合性解决方案，是广大用户值得信赖的精密机械服务伙伴。</p>
+                <p class="text-gray-600 mb-4">公司不仅有专业的维修、保养人员，可靠的仪器评估人员，更有完善、迅速、友好的售后服务。无论您是有咨询需求、需要技术支持，还是遇到售后问题，都能得到及时响应，专业人员会全程跟进对接，用耐心细致的服务为您排忧解难，让每一位用户在合作全程都能感受到省心、放心、暖心的体验。</p>
+                <div class="grid grid-cols-2 gap-4 mt-6">
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                        <h4 class="font-semibold text-primary">企业愿景</h4>
+                        <p class="text-gray-600 text-sm">成为精密测量领域的领先供应商</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                        <h4 class="font-semibold text-blue-600">企业使命</h4>
+                        <p class="text-gray-600 text-sm">为客户创造价值，推动行业发展</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                        <h4 class="font-semibold text-blue-600">企业精神</h4>
+                        <p class="text-gray-600 text-sm">专业、创新、诚信、高效</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                        <h4 class="font-semibold text-blue-600">核心价值观</h4>
+                        <p class="text-gray-600 text-sm">客户至上，质量第一，持续改进</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bg-white rounded-xl shadow-md p-8 mb-16">
+            <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">我们的优势</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="text-center p-6 bg-blue-50 rounded-lg">
+                    <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-check-circle text-white text-2xl"></i>
+                    </div>
+                    <h4 class="text-lg font-semibold text-gray-800 mb-2">品质保证</h4>
+                    <p class="text-gray-600">所有产品均通过严格的质量检测，确保品质可靠。</p>
+                </div>
+                <div class="text-center p-6 bg-green-50 rounded-lg">
+                    <div class="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-tools text-white text-2xl"></i>
+                    </div>
+                    <h4 class="text-lg font-semibold text-gray-800 mb-2">技术支持</h4>
+                    <p class="text-gray-600">专业的技术团队提供24小时技术咨询和支持服务。</p>
+                </div>
+                <div class="text-center p-6 bg-yellow-50 rounded-lg">
+                    <div class="w-16 h-16 bg-yellow-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-users text-white text-2xl"></i>
+                    </div>
+                    <h4 class="text-lg font-semibold text-gray-800 mb-2">专业团队</h4>
+                    <p class="text-gray-600">拥有经验丰富的技术和销售团队，为客户提供专业服务。</p>
+                </div>
+                <div class="text-center p-6 bg-purple-50 rounded-lg">
+                    <div class="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-handshake text-white text-2xl"></i>
+                    </div>
+                    <h4 class="text-lg font-semibold text-gray-800 mb-2">优质服务</h4>
+                    <p class="text-gray-600">提供完善的售前、售中、售后服务，让客户无后顾之忧。</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mb-16">
+            <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">发展历程</h3>
+            <div class="relative">
+                <!-- Timeline line -->
+                <div class="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gray-200"></div>
+                
+                <!-- Timeline items -->
+                <div class="timeline-items space-y-12">
+                    <!-- 2015 -->
+                    <div class="timeline-item flex flex-col md:flex-row items-center">
+                        <div class="md:w-1/2 md:pr-12 text-right mb-6 md:mb-0">
+                            <h4 class="text-xl font-bold text-blue-600">2015年</h4>
+                            <p class="text-gray-700">公司成立，专注于精密测量仪器的销售与服务</p>
+                        </div>
+                        <div class="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 rounded-full bg-blue-600 border-4 border-white"></div>
+                        <div class="md:w-1/2 md:pl-12"></div>
+                    </div>
+                    
+                    <!-- 2017 -->
+                    <div class="timeline-item flex flex-col md:flex-row items-center">
+                        <div class="md:w-1/2 md:pr-12"></div>
+                        <div class="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 rounded-full bg-green-600 border-4 border-white"></div>
+                        <div class="md:w-1/2 md:pl-12 text-left mb-6 md:mb-0">
+                            <h4 class="text-xl font-bold text-green-600">2017年</h4>
+                            <p class="text-gray-700">与国际知名品牌建立合作关系，扩大产品线</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 2019 -->
+                    <div class="timeline-item flex flex-col md:flex-row items-center">
+                        <div class="md:w-1/2 md:pr-12 text-right mb-6 md:mb-0">
+                            <h4 class="text-xl font-bold text-yellow-600">2019年</h4>
+                            <p class="text-gray-700">扩大服务范围，增加校准和维修服务项目</p>
+                        </div>
+                        <div class="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 rounded-full bg-yellow-600 border-4 border-white"></div>
+                        <div class="md:w-1/2 md:pl-12"></div>
+                    </div>
+                    
+                    <!-- 2021 -->
+                    <div class="timeline-item flex flex-col md:flex-row items-center">
+                        <div class="md:w-1/2 md:pr-12"></div>
+                        <div class="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 rounded-full bg-red-600 border-4 border-white"></div>
+                        <div class="md:w-1/2 md:pl-12 text-left mb-6 md:mb-0">
+                            <h4 class="text-xl font-bold text-red-600">2021年</h4>
+                            <p class="text-gray-700">公司规模扩大，技术团队人数增加，服务能力提升</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 2023 -->
+                    <div class="timeline-item flex flex-col md:flex-row items-center">
+                        <div class="md:w-1/2 md:pr-12 text-right">
+                            <h4 class="text-xl font-bold text-purple-600">2023年至今</h4>
+                            <p class="text-gray-700">持续创新发展，致力于为客户提供更优质的产品和服务</p>
+                        </div>
+                        <div class="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 rounded-full bg-purple-600 border-4 border-white"></div>
+                        <div class="md:w-1/2 md:pl-12"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center">
+            <a href="{{ url_for('main.contact') }}" class="btn-primary inline-block">
+                <i class="fas fa-envelope mr-2"></i> 联系我们
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // 图片懒加载初始化
+    document.addEventListener('DOMContentLoaded', function() {
+        const lazyImages = document.querySelectorAll('img');
+        
+        if ('IntersectionObserver' in window) {
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const image = entry.target;
+                        image.classList.add('fade-in');
+                        imageObserver.unobserve(image);
+                    }
+                });
+            });
+            
+            lazyImages.forEach(image => {
+                imageObserver.observe(image);
+            });
+        }
+    });
+</script>
+{% endblock %}
